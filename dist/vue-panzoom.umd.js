@@ -1,6 +1,6 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('panzoom')) :
-  typeof define === 'function' && define.amd ? define(['panzoom'], factory) :
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@collabroom/panzoom')) :
+  typeof define === 'function' && define.amd ? define(['@collabroom/panzoom'], factory) :
   (global = global || self, global.VuePanZoom = factory(global.panZoom));
 }(this, function (panZoom) { 'use strict';
 
@@ -238,15 +238,18 @@
     );
 
   var PanZoomPlugin = {
-      install: function install(Vue, options) {
-          var _name = options && options.componentName ? options.componentName : __vue_component__.name;
-          Vue.component(_name, __vue_component__);
-          Vue.prototype.$panZoom = panZoom;
-      }
+    install: function install(Vue, options) {
+      var _name =
+        options && options.componentName
+          ? options.componentName
+          : __vue_component__.name;
+      Vue.component(_name, __vue_component__);
+      Vue.prototype.$panZoom = panZoom;
+    },
   };
 
   if (typeof window !== 'undefined' && window.Vue) {
-      window.Vue.use(PanZoomPlugin);
+    window.Vue.use(PanZoomPlugin);
   }
 
   return PanZoomPlugin;

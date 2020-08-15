@@ -1,4 +1,4 @@
-import panZoom from 'panzoom';
+import panZoom from '@collabroom/panzoom';
 
 var PanZoomComponent = {
   name: 'panZoom',
@@ -232,15 +232,18 @@ __vue_render__._withStripped = true;
   );
 
 var PanZoomPlugin = {
-    install: function install(Vue, options) {
-        var _name = options && options.componentName ? options.componentName : __vue_component__.name;
-        Vue.component(_name, __vue_component__);
-        Vue.prototype.$panZoom = panZoom;
-    }
+  install: function install(Vue, options) {
+    var _name =
+      options && options.componentName
+        ? options.componentName
+        : __vue_component__.name;
+    Vue.component(_name, __vue_component__);
+    Vue.prototype.$panZoom = panZoom;
+  },
 };
 
 if (typeof window !== 'undefined' && window.Vue) {
-    window.Vue.use(PanZoomPlugin);
+  window.Vue.use(PanZoomPlugin);
 }
 
 export default PanZoomPlugin;
