@@ -1,100 +1,100 @@
 import panZoom from 'panzoom';
 
 var PanZoomComponent = {
-    name: 'panZoom',
-    props: {
-        options: Object,
-        selector: String,
-    },
-    data: function data() {
-        return {
-            $panZoomInstance: null,
-            instanceId: null,
-            defaultOptions: {
-                bounds: true,
-                minZoom: 0.5,
-                maxZoom: 2,
-            }
-        }
-    },
-    created: function created() {
-        this.instanceId = this.generateRandomId(20);
-    },
-    mounted: function mounted() {
-        if (this.scene) {
-            var _options = Object.assign({}, this.defaultOptions, this.options);
-            this.$panZoomInstance = this.$panZoom(this.scene, _options);
-            this.$panZoomInstanceId = this.instanceId;
-            this.attachEvents();
-        }
-    },
-    computed: {
-        scene: function scene() {
-            var el;
-            var _wrapper = this.$el.querySelector('.vue-pan-zoom-scene');
-            if (this.selector) {
-                el = _wrapper.querySelector(this.selector);
-            }
-            else {
-                el = _wrapper.querySelector('svg, object, embed');
-                if (!el) {
-                    el = _wrapper.firstChild;
-                }
-            }
-            return el;
-        },
-    },
-    methods: {
-        generateRandomId: function generateRandomId(l) {
-            l = l || 16;
-            var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            var charsLength = chars.length;
-            var a = [];
-
-            for(var i=0; i<l; i++) {
-                a.push( chars.charAt(Math.floor(Math.random() * charsLength)) );
-            }
-            return a.join('');
-        },
-        attachEvents: function attachEvents() {
-            var this$1 = this;
-
-            this.$emit('init', this.$panZoomInstance, this.$panZoomInstanceId);
-
-            this.$panZoomInstance.on('panstart', function (e) {
-                this$1.$emit('panstart', e);
-            });
-
-            this.$panZoomInstance.on('panend', function (e) {
-                this$1.$emit('panend', e);
-            });
-
-            this.$panZoomInstance.on('pan', function (e) {
-                this$1.$emit('pan', e);
-            });
-
-            this.$panZoomInstance.on('zoom', function (e) {
-                this$1.$emit('zoom', e);
-            });
-
-            this.$panZoomInstance.on('transform', function (e) {
-                this$1.$emit('transform', e);
-            });
-
-            this.$panZoomInstance.on('zoomend', function (e) {
-                this$1.$emit('zoomend', e);
-            });
-        },
-        isPaused: function isPaused() {
-            return this.$panZoomInstance.isPaused();
-        },
-        pause: function pause() {
-            this.$panZoomInstance.pause();
-        },
-        resume: function resume() {
-            this.$panZoomInstance.resume();
-        }
+  name: 'panZoom',
+  props: {
+    options: Object,
+    selector: String,
+  },
+  data: function data() {
+    return {
+      $panZoomInstance: null,
+      instanceId: null,
+      defaultOptions: {
+        bounds: true,
+        minZoom: 0.5,
+        maxZoom: 2,
+      },
+    };
+  },
+  created: function created() {
+    this.instanceId = this.generateRandomId(20);
+  },
+  mounted: function mounted() {
+    if (this.scene) {
+      var _options = Object.assign({}, this.defaultOptions, this.options);
+      this.$panZoomInstance = this.$panZoom(this.scene, _options);
+      this.$panZoomInstanceId = this.instanceId;
+      this.attachEvents();
     }
+  },
+  computed: {
+    scene: function scene() {
+      var el;
+      var _wrapper = this.$el.querySelector('.vue-pan-zoom-scene');
+      if (this.selector) {
+        el = _wrapper.querySelector(this.selector);
+      } else {
+        el = _wrapper.querySelector('svg, object, embed');
+        if (!el) {
+          el = _wrapper.firstChild;
+        }
+      }
+      return el;
+    },
+  },
+  methods: {
+    generateRandomId: function generateRandomId(l) {
+      l = l || 16;
+      var chars =
+        '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      var charsLength = chars.length;
+      var a = [];
+
+      for (var i = 0; i < l; i++) {
+        a.push(chars.charAt(Math.floor(Math.random() * charsLength)));
+      }
+      return a.join('');
+    },
+    attachEvents: function attachEvents() {
+      var this$1 = this;
+
+      this.$emit('init', this.$panZoomInstance, this.$panZoomInstanceId);
+
+      this.$panZoomInstance.on('panstart', function (e) {
+        this$1.$emit('panstart', e);
+      });
+
+      this.$panZoomInstance.on('panend', function (e) {
+        this$1.$emit('panend', e);
+      });
+
+      this.$panZoomInstance.on('pan', function (e) {
+        this$1.$emit('pan', e);
+      });
+
+      this.$panZoomInstance.on('zoom', function (e) {
+        this$1.$emit('zoom', e);
+      });
+
+      this.$panZoomInstance.on('transform', function (e) {
+        this$1.$emit('transform', e);
+      });
+
+      this.$panZoomInstance.on('zoomend', function (e) {
+        this$1.$emit('zoomend', e);
+      });
+    },
+    isPaused: function isPaused() {
+      return this.$panZoomInstance.isPaused();
+    },
+    pause: function pause() {
+      this.$panZoomInstance.pause();
+    },
+    resume: function resume() {
+      this.$panZoomInstance.resume();
+    },
+  },
 };
 
 function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier
